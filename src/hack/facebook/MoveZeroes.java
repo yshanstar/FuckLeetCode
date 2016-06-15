@@ -15,6 +15,25 @@ public class MoveZeroes {
 			return;
 		}
 
+		int idx = -1;
+		for (int i = 0; i < nums.length; i++) {
+			if (nums[i] == 0 && idx == -1) {
+				idx = i; // record the first 0;
+			}
+
+			if (nums[i] != 0 && idx != -1) {
+				nums[idx] = nums[i];
+				nums[i] = 0;
+				idx++;
+			}
+		}
+	}
+
+	public void moveZeroes2(int[] nums) {
+		if (nums == null || nums.length == 0) {
+			return;
+		}
+
 		int idx = 0;
 		for (int i = 0; i < nums.length; i++) {
 			if (nums[i] != 0) {
