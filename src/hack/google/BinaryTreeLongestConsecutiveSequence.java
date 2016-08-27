@@ -24,6 +24,7 @@ Longest consecutive sequence path is 3-4-5, so return 3.
   / 
  1
 Longest consecutive sequence path is 2-3,not3-2-1, so return 2.
+//
  */
 public class BinaryTreeLongestConsecutiveSequence {
 	public int longestConsecutive(TreeNode root) {
