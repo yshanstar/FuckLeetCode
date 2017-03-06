@@ -1,3 +1,6 @@
 /bin/
 /.recommenders/
 /.settings/
+.idea/*/*.*
+.idea/*.*
+FuckLeetcode.iml
