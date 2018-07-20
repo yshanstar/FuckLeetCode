@@ -44,17 +44,45 @@ Reference: https://www.geeksforgeeks.org/three-way-partitioning-of-an-array-arou
 
  */
 public class ThreeWayPartitioning {
-    public static void threeWayPartition(int[] arr, int lowVal, int highVal) {
+    public static void threeWayPartition(int[] arr, int pivot) {
+        int pos = fixSmaller(arr, pivot);
+        fixLarger(arr, pivot, pos);
+    }
 
+    private static int fixSmaller(int[] arr, int pivot) {
+        int start = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] < pivot) {
+                int tmp = arr[start];
+                arr[start] = arr[i];
+                arr[i] = tmp;
+                start++;
+            }
+        }
+        return start;
+    }
+
+    private static void fixLarger(int[] arr, int pivot, int startPos) {
+        int end = arr.length - 1;
+        for (int i = startPos; i < end; ) {
+            if (arr[i] > pivot) {
+                int tmp = arr[end];
+                arr[end] = arr[i];
+                arr[i] = tmp;
+                end--;
+            } else {
+                i++;
+            }
+        }
     }
 
 
     public static void main(String[] args) {
 
 
-        int arr[] = {1, 8, 7, 4, 5, 5, 9};
+        int arr[] = {1, 8, 7, 4, 5, 5, 2, 9, 1, 6, 2, 3, 9, 5, 5, 5};
 
-        threeWayPartition(arr, 5, 5);
+        threeWayPartition(arr, 5);
 
         System.out.println("Modified array ");
         for (int i = 0; i < arr.length; i++) {
