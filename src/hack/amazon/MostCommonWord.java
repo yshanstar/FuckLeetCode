@@ -46,6 +46,15 @@ public class MostCommonWord {
         Set<String> ban = new HashSet<>(Arrays.asList(banned));
         Map<String, Integer> count = new HashMap<>();
 
+        /*
+        \p{P} or \p{Punctuation}: any kind of punctuation character.
+        \p{Pd} or \p{Dash_Punctuation}: any kind of hyphen or dash.
+        \p{Ps} or \p{Open_Punctuation}: any kind of opening bracket.
+        \p{Pe} or \p{Close_Punctuation}: any kind of closing bracket.
+        \p{Pi} or \p{Initial_Punctuation}: any kind of opening quote.
+        \p{Pf} or \p{Final_Punctuation}: any kind of closing quote.
+        \p{Pc} or \p{Connector_Punctuation}: a punctuation character such as an underscore that
+         */
         String[] words = paragraph.replaceAll("\\pP", " ").toLowerCase().split("\\s+");
         for (String word : words) {
             if (!ban.contains(word)) {
