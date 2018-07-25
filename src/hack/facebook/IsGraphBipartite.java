@@ -1,8 +1,8 @@
 package hack.facebook;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 /*
@@ -79,13 +79,26 @@ public class IsGraphBipartite {
 
         Set<Integer> setOne = new HashSet<>();
         Set<Integer> setTwo = new HashSet<>();
-        Map<Integer, Boolean> unVisistedNodes = new HashMap<>();
+        boolean[] visited = new boolean[graph.length];
+        Queue<Integer> nodeQueue = new LinkedList<>();
+        nodeQueue.offer(0);
+
         for (int i = 0; i < graph.length; i++) {
-            unVisistedNodes.put(i, false);
+            if (graph[i].length == 0) {
+                setOne.add(i);
+            }
         }
 
-        for (int i : unVisistedNodes.keySet()) {
+        while (!nodeQueue.isEmpty()) {
+            int i = nodeQueue.poll();
+            visited[i] = true;
             int[] nodes = graph[i];
+            for (int node : nodes) {
+                if (!visited[node]) {
+                    nodeQueue.offer(node);
+                }
+            }
+
             if (!setOne.contains(i) && !setTwo.contains(i)) {
                 Set<Integer> set = findSet(setOne, setTwo, nodes);
                 if (set == null) {
