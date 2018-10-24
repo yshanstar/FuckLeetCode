@@ -12,50 +12,94 @@ package hack.facebook;
  If there is no such window in S that covers all characters in T, return the empty string "".
 
  If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
+
+ Reference:
+
  */
 public class MinimumWindowSubstring {
-	public static String minWindow(String s, String t) {
-		if (t == null || t.isEmpty()) {
-			return "";
-		}
+    public String minWindow(String s, String t) {
+        int[] hash = new int[256];
+        for (char c : t.toCharArray()) {
+            hash[c]++;
+        }
 
-		int[] needToFind = new int[256];
-		int[] hasFind = new int[256];
+        int left = 0, right = 0;
+        int counter = t.length();
+        int minLength = Integer.MAX_VALUE;
+        int resultHead = 0;
 
-		for (char c : t.toCharArray()) {
-			needToFind[c]++;
-		}
+        while (right < s.length()) {
+            // move right every time, if the char in the t, decrease the counter
+            if (hash[s.charAt(right++)]-- > 0) {
+                counter--;
+            }
 
-		String res = "";
-		int found = 0;
+            // if the counter == 0, record and compare the minLength
+            while (counter == 0) {
+                int currentLength = right - left;
+                if (currentLength < minLength) {
+                    minLength = currentLength;
+                    resultHead = left;
+                }
 
-		for (int start = 0, end = 0; end < s.length(); end++) {
-			char c = s.charAt(end);
-			if (needToFind[c] == 0) {
-				continue;
-			}
+                // move left and make it invalid again
+                if (hash[s.charAt(left++)]++ == 0) {
+                    counter++;  //make it invalid
+                }
+            }
 
-			hasFind[c]++;
-			if (hasFind[c] <= needToFind[c]) {
-				found++;
-			}
+        }
 
-			if (found == t.length()) {
-				char startC = s.charAt(start);
-				while (needToFind[startC] == 0 || hasFind[startC] > needToFind[startC]) {
-					if (hasFind[startC] > needToFind[startC]) {
-						hasFind[startC]--;
-					}
-					start++;
-					startC = s.charAt(start);
-				}
-				int length = end - start + 1;
-				if (res.isEmpty() || res.length() > length) {
-					res = s.substring(start, end + 1);
-				}
-			}
-		}
+        return minLength == Integer.MAX_VALUE ? "" : s.substring(resultHead, resultHead + minLength);
+    }
 
-		return res;
-	}
+    public static void main(String[] args) {
+        MinimumWindowSubstring test = new MinimumWindowSubstring();
+        test.minWindow("ADOBECODEBANC", "ABC");
+    }
+
+    public static String minWindow2(String s, String t) {
+        if (t == null || t.isEmpty()) {
+            return "";
+        }
+
+        int[] needToFind = new int[256];
+        int[] hasFind = new int[256];
+
+        for (char c : t.toCharArray()) {
+            needToFind[c]++;
+        }
+
+        String res = "";
+        int found = 0;
+
+        for (int start = 0, end = 0; end < s.length(); end++) {
+            char c = s.charAt(end);
+            if (needToFind[c] == 0) {
+                continue;
+            }
+
+            hasFind[c]++;
+            if (hasFind[c] <= needToFind[c]) {
+                found++;
+            }
+
+            if (found == t.length()) {
+                char startC = s.charAt(start);
+                while (needToFind[startC] == 0 || hasFind[startC] > needToFind[startC]) {
+                    if (hasFind[startC] > needToFind[startC]) {
+                        hasFind[startC]--;
+                    }
+                    start++;
+                    startC = s.charAt(start);
+                }
+                int length = end - start + 1;
+                if (res.isEmpty() || res.length() > length) {
+                    res = s.substring(start, end + 1);
+                }
+            }
+        }
+
+        return res;
+    }
 }
