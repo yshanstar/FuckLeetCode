@@ -14,6 +14,7 @@ package hack.facebook;
  If there are multiple such windows, you are guaranteed that there will always be only one unique minimum window in S.
 
  Reference:
+ https://leetcode.com/problems/minimum-window-substring/discuss/26808/here-is-a-10-line-template-that-can-solve-most-substring-problems
 
  */
 public class MinimumWindowSubstring {
