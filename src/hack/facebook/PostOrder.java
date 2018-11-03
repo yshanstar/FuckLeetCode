@@ -1,15 +1,18 @@
 package hack.facebook;
 
+
+import hack.util.TreeNodeWithParent;
+
 public class PostOrder {
-    public static int findNext(TreeNode n) throws Exception {
+    public static int findNext(TreeNodeWithParent n) throws Exception {
         if (n == null) throw new Exception();
 
-        TreeNode p = n.parent;
+        TreeNodeWithParent p = n.parent;
 
         if (p == null) throw new Exception();
 
         if (n == p.left) {
-            TreeNode node = p.right;
+            TreeNodeWithParent node = p.right;
             while (node != null) {
                 if (node.left != null) node = node.left;
                 else if (node.right != null) node = node.right;
@@ -21,15 +24,15 @@ public class PostOrder {
     }
 
     public static void main(String[] args) {
-        TreeNode root = new TreeNode(8);
-        TreeNode n1 = new TreeNode(4);
-        TreeNode n2 = new TreeNode(10);
-        TreeNode n3 = new TreeNode(1);
-        TreeNode n4 = new TreeNode(5);
-        TreeNode n5 = new TreeNode(9);
-        TreeNode n6 = new TreeNode(22);
-        TreeNode n7 = new TreeNode(12);
-        TreeNode n8 = new TreeNode(3);
+        TreeNodeWithParent root = new TreeNodeWithParent(8);
+        TreeNodeWithParent n1 = new TreeNodeWithParent(4);
+        TreeNodeWithParent n2 = new TreeNodeWithParent(10);
+        TreeNodeWithParent n3 = new TreeNodeWithParent(1);
+        TreeNodeWithParent n4 = new TreeNodeWithParent(5);
+        TreeNodeWithParent n5 = new TreeNodeWithParent(9);
+        TreeNodeWithParent n6 = new TreeNodeWithParent(22);
+        TreeNodeWithParent n7 = new TreeNodeWithParent(12);
+        TreeNodeWithParent n8 = new TreeNodeWithParent(3);
 
         root.left = n1;
         root.right = n2;
@@ -54,14 +57,5 @@ public class PostOrder {
             e.printStackTrace();
         }
 
-    }
-}
-
-class TreeNode {
-    TreeNode left, right, parent;
-    int value;
-
-    public TreeNode(int value) {
-        this.value = value;
     }
 }
