@@ -1,5 +1,7 @@
 package hack.facebook;
 
+import hack.util.TreeNode;
+
 /*
 Convert a BST to a sorted circular doubly-linked list in-place. Think of the left and right pointers as synonymous to the previous and next pointers in a doubly-linked list.
 
@@ -25,14 +27,15 @@ The figure below shows the transformed BST. The solid line indicates the success
 Reference: https://leetcode.com/problems/convert-binary-search-tree-to-sorted-doubly-linked-list/discuss/149151/Concise-Java-solution-Beats-100
  */
 public class ConvBinarySearchTreeToSortedDoublyLinkedList {
-    private Node prev = null;
-    public Node treeToDoublyList(Node root) {
+    private TreeNode prev = null;
+
+    public TreeNode treeToDoublyList(TreeNode root) {
         if (root == null) {
             return null;
         }
 
         // dummy is the dummy node which used to track the first node
-        Node dummy = new Node(-1, null, null);
+        TreeNode dummy = new TreeNode(-1, null, null);
         prev = dummy;
 
         helper(root);
@@ -44,7 +47,7 @@ public class ConvBinarySearchTreeToSortedDoublyLinkedList {
         return dummy.right;
     }
 
-    private void helper(Node currentNode) {
+    private void helper(TreeNode currentNode) {
         if (currentNode == null) {
             return;
         }
@@ -58,19 +61,3 @@ public class ConvBinarySearchTreeToSortedDoublyLinkedList {
         helper(currentNode.right);
     }
 }
-
-
-class Node {
-    public int val;
-    public Node left;
-    public Node right;
-
-    public Node() {
-    }
-
-    public Node(int _val, Node _left, Node _right) {
-        val = _val;
-        left = _left;
-        right = _right;
-    }
-};
