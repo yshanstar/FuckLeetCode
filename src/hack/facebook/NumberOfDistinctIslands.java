@@ -46,16 +46,16 @@ public class NumberOfDistinctIslands {
         return set.size();
     }
 
-    private void dfs(int[][] grib, int row, int col, StringBuilder sb, String direction) {
-        if (row < 0 || row >= grib.length || col < 0 || col >= grib[row].length || grib[row][col] != 1) {
+    private void dfs(int[][] grid, int row, int col, StringBuilder sb, String direction) {
+        if (row < 0 || row >= grid.length || col < 0 || col >= grid[row].length || grid[row][col] != 1) {
             return;
         }
         sb.append(direction);
-        grib[row][col] = 0;
-        dfs(grib, row - 1, col, sb, "U");
-        dfs(grib, row + 1, col, sb, "D");
-        dfs(grib, row, col - 1, sb, "L");
-        dfs(grib, row, col + 1, sb, "R");
+        grid[row][col] = 0;
+        dfs(grid, row - 1, col, sb, "U");
+        dfs(grid, row + 1, col, sb, "D");
+        dfs(grid, row, col - 1, sb, "L");
+        dfs(grid, row, col + 1, sb, "R");
         sb.append("B");
     }
 }
